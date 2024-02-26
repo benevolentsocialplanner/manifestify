@@ -1,0 +1,5 @@
+{
+  "name": "manifestify",
+  "entryPoint": "./App.tsx",
+  "displayName": "manifestify"
+}
