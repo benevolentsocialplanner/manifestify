@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import navigationRoutes from '../constants/navigationRoutes';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import DiscoverScreen from '../screens/DiscoverScreen';
 const Stack = createNativeStackNavigator();
 
 const NoUserStack = ({navigation}) => {
@@ -13,7 +14,7 @@ const NoUserStack = ({navigation}) => {
         <Stack.Screen
           options={{headerShown: false}}
           name={navigationRoutes.loginScreen}
-          component={LoginScreen}
+          component={DiscoverScreen}
         />
         <Stack.Screen
           options={{headerShown: false}}
