@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import navigationRoutes from '../constants/navigationRoutes';
 import LoginScreen from '../screens/LoginScreen';
+
 import RegisterScreen from '../screens/RegisterScreen';
 import InitialScreen from '../screens/InitialScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
@@ -15,13 +16,13 @@ const NoUserStack = ({navigation}) => {
       <Stack.Navigator>
         <Stack.Screen
           options={{headerShown: false}}
-          name={navigationRoutes.InitialScreen}
+          name={navigationRoutes.initialScreen}
           component={InitialScreen}
         />
         <Stack.Screen
           options={{headerShown: false}}
           name={navigationRoutes.loginScreen}
-          component={DiscoverScreen}
+          component={LoginScreen}
         />
         <Stack.Screen
           options={{headerShown: false}}

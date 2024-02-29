@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, ViewStyle, StyleSheet, Dimensions, View } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import {COLORS} from '../constants/theme';
+import DiscoverScreen from '../screens/DiscoverScreen';
 
 const Tab = createBottomTabNavigator();
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -36,7 +37,7 @@ const BottomTabNavigation = ({ navigation }) => {
       <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
           name="home"
-          component={HomeScreen}
+          component={DiscoverScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               return (

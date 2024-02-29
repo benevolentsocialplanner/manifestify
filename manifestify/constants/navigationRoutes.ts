@@ -3,4 +3,5 @@ export default {
   registerScreen: 'RegisterScreen',
   BottomTab: 'Bottom Navigation',
   discoverScreen: 'DiscoverScreen',
+  initialScreen: 'InitialScreen',
 };

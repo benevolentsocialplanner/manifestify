@@ -21,7 +21,7 @@ const InitialScreen = ({navigation}) => {
       <SafeAreaView style={styles.bigContainer}>
         <View style={styles.container}>
           <Image
-            source={require('../assets/images/logo.png')}
+            source={require('../assets/images/Layer_1.png')}
             style={styles.logo}
           />
         </View>
