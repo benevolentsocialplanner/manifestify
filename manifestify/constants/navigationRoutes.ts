@@ -4,4 +4,6 @@ export default {
   BottomTab: 'Bottom Navigation',
   discoverScreen: 'DiscoverScreen',
   initialScreen: 'InitialScreen',
+  emailEnterScreen: 'EmailEnterScreen',
+  otpscreen: 'OTPScreen',
 };
