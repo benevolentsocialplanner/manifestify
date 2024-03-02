@@ -26,8 +26,10 @@ app.use(function(req, res, next) {
     next();
 });
   
-const apiRoutes = require('./routes/apiRoutes.js')
-app.use('/', apiRoutes);
+const authRoutes = require('./routes/authRoutes.js')
+app.use('/auth', authRoutes);
+const eventRoutes = require('./routes/eventRoutes.js')
+app.use('/api', eventRoutes);
 
 const port = process.env.PORT || 8000
 

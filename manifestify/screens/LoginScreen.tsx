@@ -12,17 +12,30 @@ import {
   ImageBackground,
 } from 'react-native';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 import {AppContext} from '../App';
 import navigationRoutes from '../constants/navigationRoutes';
 import {COLORS} from '../constants/theme';
+import LoginBackground from '../components/LoginBackground';
+import apiRoutes from '../constants/apiRoutes';
 
 const LoginScreen = ({navigation}) => {
   const {users, setUser} = useContext(AppContext);
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
 
   const handleLogin = (mail: string, password: string) => {
-    console.log(mail, password);
+
+    axios.post(`${process.env.API_URL}${apiRoutes.loginEndpoint}`, {
+      email: mail,
+      password: password,
+    })
+    .then((response)=>{
+      console.log(response.data.token)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
   };
 
   const LoginSchema = Yup.object().shape({
@@ -31,9 +44,7 @@ const LoginScreen = ({navigation}) => {
   });
 
   return (
-    <ImageBackground
-      source={require('../assets/images/bakcground.png')}
-      style={{flex: 1}}>
+    <LoginBackground>
       <SafeAreaView style={styles.container}>
         <Formik
           initialValues={{email: '', password: ''}}
@@ -81,7 +92,7 @@ const LoginScreen = ({navigation}) => {
               <TouchableOpacity
                 disabled={!isValid}
                 style={styles.loginButton}
-                onPress={() => isValid && handleSubmit()}>
+                onPress={() => handleSubmit()}>
                 <Text style={styles.loginButtonText}>Giriş yap</Text>
               </TouchableOpacity>
               <View style={styles.registerContainer}>
@@ -98,7 +109,7 @@ const LoginScreen = ({navigation}) => {
           )}
         </Formik>
       </SafeAreaView>
-    </ImageBackground>
+    </LoginBackground>
   );
 };
 

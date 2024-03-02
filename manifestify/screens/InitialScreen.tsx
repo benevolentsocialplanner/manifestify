@@ -12,12 +12,11 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS} from '../constants/theme';
 import navigationRoutes from '../constants/navigationRoutes';
+import LoginBackground from '../components/LoginBackground';
 
 const InitialScreen = ({navigation}) => {
   return (
-    <ImageBackground
-      source={require('../assets/images/bakcground.png')}
-      style={{flex: 1}}>
+    <LoginBackground>
       <SafeAreaView style={styles.bigContainer}>
         <View style={styles.container}>
           <Image
@@ -51,7 +50,7 @@ const InitialScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </ImageBackground>
+    </LoginBackground>
   );
 };
 

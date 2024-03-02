@@ -33,13 +33,13 @@ const createSendToken = (user, statusCode, req, res) => {
 
 
 exports.login = catchAsync(async (req, res, next) => {
-    const { email, encry_password } = req.body;
-    
-    if (!email || !encry_password) {
+    const { email, password } = req.body;
+    console.log("logging in")
+    if (!email || !password) {
       return next(new AppError('Please provide email and password!', 400));
     }
     const user = await User.findOne({ email });
-    if (!user || !(await user.correctPassword(encry_password, user.encry_password))) {
+    if (!user || !(await user.correctPassword(password, user.encry_password))) {
       return next(new AppError('Incorrect email or password', 401));
     }  
     createSendToken(user, 200, req, res);
@@ -50,7 +50,7 @@ exports.register = catchAsync(async (req, res, next) => {
   var salt = bcrypt.genSaltSync(10);
   const name = req.body.name
   const email = req.body.email
-  const encry_password= req.body.encry_password
+  const encry_password= req.body.password
   bcrypt.hash(encry_password, salt, async (err, hashedPw) => {
     if(err){
         console.log(err.message)
@@ -92,7 +92,10 @@ exports.protect = catchAsync(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
     } else if (req.cookies.jwt) {
       token = req.cookies.jwt;
+    }else if(req.body.token){
+      token = req.body.token
     }
+
     if (!token) {
       return next(
         new AppError('You are not logged in! Please log in to get access.', 401)

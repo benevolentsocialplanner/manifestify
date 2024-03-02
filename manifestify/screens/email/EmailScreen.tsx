@@ -25,13 +25,13 @@ const EmailScreen = ({navigation}) => {
   });
 
   return (
-    <LoginBackground>
+    <LoginBackground bg={"background.png"}>
       <SafeAreaView style={{flex: 1, marginHorizontal: '10%'}}>
         <View style={styles.container}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => {
-                navigation.push('loginScreen');
+                navigation.push(navigationRoutes.loginScreen);
               }}>
               <Image
                 source={require('../../assets/images/closeIcon.png')}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     tintColor: 'red',
     borderWidth: 3,
-    borderColor: 'blue',
+    borderColor: COLORS.blue,
     paddingHorizontal: 20,
   },
   errorText: {
@@ -133,19 +133,20 @@ const styles = StyleSheet.create({
   sendBtn: {
     marginTop: '10%',
     width: '100%',
-    backgroundColor: 'blue',
+    backgroundColor: COLORS.purple,
     height: 60,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
     borderWidth: 3,
-    borderColor: 'blue',
+    borderColor: COLORS.purple,
     paddingHorizontal: 20,
   },
   sendBtnText: {
     color: 'white',
     fontSize: 22,
+    fontWeight: 'bold',
     textTransform: 'uppercase',
   },
 });

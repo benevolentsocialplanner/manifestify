@@ -1,11 +1,15 @@
-import {View, Text, ImageBackground} from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import React from 'react';
 
-const LoginBackground = ({children}) => {
+const LoginBackground = ({ children, ...inputProps }) => {
+  const backgroundImageSource = inputProps.bg
+    ? { uri: `../assets/images/${inputProps.bg}` }
+    : require('../assets/images/loginBg.png');
+
   return (
     <ImageBackground
-      source={require('../assets/images/bakcground.png')}
-      style={{flex: 1}}>
+      source={backgroundImageSource}
+      style={{ flex: 1 }}>
       {children}
     </ImageBackground>
   );

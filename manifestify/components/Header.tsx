@@ -1,17 +1,27 @@
 import React from 'react'
-import { Button, Image, StyleSheet, View } from 'react-native'
+import { Button, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native';
+import navigationRoutes from '../constants/navigationRoutes';
 
 
 const Header = () => {
+  const navigation = useNavigation();
+
   return (
     <View>
       <SafeAreaView>
         <View style={styles.head}>
-        <Image 
-          style={styles.navIcon}
-          source={require('../assets/images/back.png')}
-          />
+          <TouchableOpacity
+          style={{width: 50, alignSelf: 'center'}}
+          onPress={() => {
+            navigation.navigate(navigationRoutes.homeScreen);
+          }}>
+            <Image 
+            style={styles.navIcon}
+            source={require('../assets/images/back.png')}
+            />
+          </TouchableOpacity>
           <Image 
           style={styles.header}
           source={require('../assets/images/manifestly.png')}

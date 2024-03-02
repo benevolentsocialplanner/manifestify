@@ -4,6 +4,7 @@ import {Image, ViewStyle, StyleSheet, Dimensions, View} from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import {COLORS} from '../constants/theme';
 import DiscoverScreen from '../screens/DiscoverScreen';
+import navigationRoutes from '../constants/navigationRoutes';
 
 const Tab = createBottomTabNavigator();
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -40,37 +41,37 @@ const BottomTabNavigation = ({navigation}) => {
           options={{
             tabBarIcon: ({focused}) => {
               return (
-                <Image
+                <Image  
                   style={styles.imageDiscover}
-                  source={require('../assets/images/home.png')}
+                  source={focused ? require('../assets/images/activeDiscover.png') : require('../assets/images/home.png')}
                 />
               );
             },
           }}
         />
         <Tab.Screen
-          name="dadad"
+          name={navigationRoutes.homeScreen}
           component={HomeScreen}
           options={{
             tabBarIcon: ({focused}) => {
               return (
                 <Image
                   style={styles.imageHome}
-                  source={require('../assets/images/bottomtab2.png')}
+                  source={focused ? require('../assets/images/bottomtab2.png') : require('../assets/images/activeBottomtab2.png')}
                 />
               );
             },
           }}
         />
         <Tab.Screen
-          name="daddad"
+          name={navigationRoutes.profileScreen}
           component={HomeScreen}
           options={{
             tabBarIcon: ({focused}) => {
               return (
                 <Image
                   style={styles.imageProfile}
-                  source={require('../assets/images/profile.png')}
+                  source={focused ? require('../assets/images/activeProfile.png') : require('../assets/images/profile.png')}
                 />
               );
             },
