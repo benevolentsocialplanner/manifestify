@@ -74,7 +74,7 @@ const AppProvider = () => {
         registerUser: registerUser,
         setRegisterUser: setRegisterUser,
       }}>
-{/*       <AnimationScreen /> */}
+
       
           {user ? (
           <LoggedInStack/>

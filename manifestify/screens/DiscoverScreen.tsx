@@ -1,11 +1,16 @@
 import React from 'react'
 import Header from '../components/Header'
+import { View } from 'react-native'
+import LoginBackground from '../components/LoginBackground'
 
-type Props = {}
 
-const DiscoverScreen = (props: Props) => {
+const DiscoverScreen = () => {
   return (
-    <Header/>
+    <View>
+      <LoginBackground bg="discoverBg.png">
+        <Header/>
+      </LoginBackground>
+    </View>
   )
 }
 

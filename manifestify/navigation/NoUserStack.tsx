@@ -7,6 +7,8 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import InitialScreen from '../screens/InitialScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
+import EmailScreen from '../screens/email/EmailScreen';
+import OTPScreen from '../screens/email/OTPScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,16 @@ const NoUserStack = ({navigation}) => {
           options={{headerShown: false}}
           name={navigationRoutes.registerScreen}
           component={RegisterScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={navigationRoutes.emailEnterScreen}
+          component={EmailScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name={navigationRoutes.otpscreen}
+          component={OTPScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
