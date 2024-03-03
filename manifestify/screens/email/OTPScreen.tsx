@@ -5,25 +5,35 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  TextInput,
 } from 'react-native';
 import navigationRoutes from '../../constants/navigationRoutes';
 import LoginBackground from '../../components/LoginBackground';
-import {Formik} from 'formik';
-import * as Yup from 'yup';
-
 import {AppContext} from '../../App';
 import {COLORS} from '../../constants/theme';
 import {OtpInput} from 'react-native-otp-entry';
+import React from 'react';
+import axios from 'axios';
+import apiRoutes from '../../constants/apiRoutes';
 
-const OTPScreen = ({navigation}) => {
-  const handleLogin = (mail: string) => {
-    console.log(mail);
+const OTPScreen = ({route, navigation}) => {
+  const {otp, mail} = route.params;
+  const {setUser} = React.useContext(AppContext);
+  
+  const [inputText, setInputText] = React.useState('');
+
+  const handleLogin = () => {
+    axios.post(apiRoutes.verifyOtpEndpoint, {
+      otp: otp,
+      email: mail
+    }).then((res)=>{
+      const obj: OTPVerifyResponse = res.data;
+      setUser(obj.user);
+      navigation.navigate(navigationRoutes.homeScreen)
+    }).catch((err)=>{
+      console.log(err);
+    })   
   };
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().required("Email can't be empty"),
-  });
 
   return (
     <LoginBackground>
@@ -32,7 +42,7 @@ const OTPScreen = ({navigation}) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => {
-                navigation.push('loginScreen');
+                navigation.push(navigationRoutes.initialScreen);
               }}>
               <Image
                 source={require('../../assets/images/closeIcon.png')}
@@ -40,18 +50,19 @@ const OTPScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Enter 4 digits</Text>
+            <Text style={styles.title}>Gelen 4 haneli kodu gir</Text>
           </View>
-
           <OtpInput
             numberOfDigits={4}
-            focusColor="green"
+            focusColor={COLORS.blue}
             focusStickBlinkingDuration={500}
-            onTextChange={text => console.log(text)}
-            onFilled={text => console.log(`OTP is ${text}`)}
+            value={inputText}
+            autoFocus={true}
+            onTextChange={text => setInputText(text)}
             theme={{
               containerStyle: styles.container,
               inputsContainerStyle: styles.inputsContainer,
+              pinCodeTextStyle: styles.pinCodeText,
               pinCodeContainerStyle: styles.pinCodeContainer,
             }}
           />
@@ -64,8 +75,8 @@ const OTPScreen = ({navigation}) => {
             <View style={{flex: 1, marginTop: '-10%'}}>
               <TouchableOpacity
                 style={styles.sendBtn}
-                onPress={() => navigation.navigate(navigationRoutes.otpscreen)}>
-                <Text style={styles.sendBtnText}>Send</Text>
+                onPress={() => handleLogin()}>
+                <Text style={styles.sendBtnText}>NEXT</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -78,7 +89,7 @@ const OTPScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: '30%',
+    marginVertical: '20%',
   },
   buttonContainer: {
     display: 'flex',
@@ -92,11 +103,13 @@ const styles = StyleSheet.create({
     height: 30,
   },
   inputsContainer: {
-    borderColor: 'blue',
+    borderColor: COLORS.blue,
   },
   pinCodeContainer: {
-    borderColor: 'blue',
+    borderColor: COLORS.blue,
     borderWidth: 1,
+    width: 70,
+    borderRadius: 30,
   },
   title: {
     fontSize: 32,
@@ -125,19 +138,23 @@ const styles = StyleSheet.create({
   },
   sendBtn: {
     width: '100%',
-    backgroundColor: 'blue',
+    backgroundColor: COLORS.purple,
     height: 60,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
     borderWidth: 3,
-    borderColor: 'blue',
+    borderColor: COLORS.purple,
     paddingHorizontal: 20,
+  },
+  pinCodeText: {
+    color: COLORS.blue
   },
   sendBtnText: {
     color: 'white',
     fontSize: 22,
+    fontWeight: 'bold',
     textTransform: 'uppercase',
   },
 });

@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   ImageBackground,
+  Keyboard,
 } from 'react-native';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -125,13 +126,14 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    borderRadius: 50,
+    borderRadius: 100,
     paddingVertical: 20,
     paddingHorizontal: 15,
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: COLORS.pink,
     marginBottom: 10,
+    color: COLORS.blue,
   },
   errorText: {
     color: 'red',

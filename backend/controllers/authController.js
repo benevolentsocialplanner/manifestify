@@ -130,3 +130,87 @@ exports.isLoggedIn = async (req, res, next) => {
     }
     next();
 };
+
+
+var nodemailer = require('nodemailer');
+const otpGenerator = require('otp-generator');
+const OTP = require('../models/otp');
+
+exports.otp = catchAsync(async (req, res, next) => {
+    const { email } = req.body;
+
+    let otp = otpGenerator.generate(4, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+      digits: true,
+    });
+
+    !otp && res.status(500).json({
+      status: 'fail',
+      message: 'OTP could not be generated'
+    }) 
+    
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.ADMIN_EMAIL,
+        pass: process.env.ADMIN_EMAIL_PASSWORD
+      }
+    });
+
+    var mailOptions = {
+      from: process.env.ADMIN_EMAIL,
+      to: email,
+      subject: 'Login to Manifestly',
+      text: `Your one time password for logging in to Manifestly is: ${otp}. This OTP will expire in 5 minutes.`
+    };
+    
+    const newOTP = new OTP({
+      email: email,
+      otp: otp
+    });
+    newOTP.save().then((otp) => {
+      console.log('OTP saved')
+    }).catch((err) => {
+      console.log(err)
+    })
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        res.status(500).json({
+          success: false,
+          message: 'Email could not be sent',
+          data: {
+            error: error.message
+          }
+        })
+      } else {
+        res.status(200).json({
+          success: true,
+          message: `Email sent to: ${email}`,
+          data: {
+            otp: otp
+          }
+        })
+      }
+    })
+})
+
+exports.verify = catchAsync(async (req, res, next) => {
+  const { email, otp } = req.body;
+  console.log("verifying")
+  const otpDoc = await OTP.findOne({ email, otp });
+  console.log(otpDoc.email)
+  if (!otpDoc) {
+    return next(new AppError('Invalid OTP', 401));
+  }else{
+    res.status(200).json({
+      success: true,
+      message: 'OTP verified successfully',
+      data: {
+        user: otpDoc.email
+      }
+    })
+  }
+    
+})

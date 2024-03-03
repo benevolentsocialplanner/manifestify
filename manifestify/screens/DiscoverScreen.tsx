@@ -1,17 +1,13 @@
-import React from 'react'
-import Header from '../components/Header'
-import { View } from 'react-native'
-import LoginBackground from '../components/LoginBackground'
-
+import React from 'react';
+import Header from '../components/Header';
+import { ImageBackground, View } from 'react-native';
 
 const DiscoverScreen = () => {
   return (
-    <View>
-      <LoginBackground bg="discoverBg.png">
-        <Header/>
-      </LoginBackground>
-    </View>
-  )
-}
+      <ImageBackground source={require("../assets/images/discoverBg.png")} style={{ flex: 1 }} resizeMode="cover">
+        <Header />
+      </ImageBackground>
+  );
+};
 
-export default DiscoverScreen
+export default DiscoverScreen;

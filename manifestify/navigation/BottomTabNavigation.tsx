@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import {COLORS} from '../constants/theme';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import navigationRoutes from '../constants/navigationRoutes';
+import {ImageBackground} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -15,17 +16,14 @@ const screenOptions = {
   headerShown: false,
   tabBarStyle: {
     marginBottom: 75,
-    marginRight: 'auto',
-    marginLeft: 'auto',
     backgroundColor: COLORS.purple,
     borderRadius: 50,
+    left: '20%',
     width: '60%',
     paddingHorizontal: 30,
     paddingTop: 25,
     paddingBottom: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
+    position: 'absolute',
     zIndex: 100,
     height: SCREEN_HEIGHT * 0.08, // Set height to 10% of screen height
   } as ViewStyle,

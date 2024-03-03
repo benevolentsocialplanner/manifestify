@@ -31,23 +31,31 @@ const InitialScreen = ({navigation}) => {
           </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate(navigationRoutes.loginScreen)}>
-            <Text>Sign In with E-mail</Text>
+            onPress={() => navigation.navigate(navigationRoutes.emailScreen)}>
+            <Text style={styles.btnText}>Sign In with E-mail</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               Alert.alert('Clicked');
             }}>
-            <Text>Sign In with AppleID</Text>
+            <Text style={styles.btnText}>Sign In with AppleID</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               Alert.alert('Clicked');
             }}>
-            <Text>Sign In with Google</Text>
+            <Text style={styles.btnText}>Sign In with Google</Text>
           </TouchableOpacity>
+        </View>
+        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+          <Text style={{fontWeight: 'bold'}}>
+          Lorem ipsum dolor sit amet in letzy.
+          </Text>
+          <Text>
+          Lorem ipsum.
+          </Text>
         </View>
       </SafeAreaView>
     </LoginBackground>
@@ -83,12 +91,17 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  btnText: {
+    color: COLORS.purple,
+    fontWeight: 'bold',
+  },
   button: {
     paddingHorizontal: 80,
     paddingVertical: 20,
     borderWidth: 1,
     borderRadius: 20,
     marginTop: 20,
+    borderColor: COLORS.pink,
     color: COLORS.textColor,
   },
 });

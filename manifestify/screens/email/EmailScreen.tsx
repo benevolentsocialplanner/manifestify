@@ -12,12 +12,30 @@ import LoginBackground from '../../components/LoginBackground';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
-import {AppContext} from '../../App';
 import {COLORS} from '../../constants/theme';
+import apiRoutes from '../../constants/apiRoutes';
+import axios from 'axios';
+import React from 'react';
+import { OTPResponse } from '../../types/types';
 
 const EmailScreen = ({navigation}) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const handleLogin = (mail: string) => {
-    console.log(mail);
+    setIsLoading(true);
+    axios.post(`${apiRoutes.otpEndpoint}`, {
+      email: mail
+    }).then((res)=>{
+      const obj: OTPResponse = res.data
+      navigation.navigate(navigationRoutes.otpscreen, (
+        {
+          mail: mail,
+          otp: obj?.data?.otp,
+        }
+      ))
+    }).catch((err)=>{
+      console.log(err)
+    })
   };
 
   const LoginSchema = Yup.object().shape({
@@ -25,7 +43,7 @@ const EmailScreen = ({navigation}) => {
   });
 
   return (
-    <LoginBackground bg={"background.png"}>
+    <LoginBackground>
       <SafeAreaView style={{flex: 1, marginHorizontal: '10%'}}>
         <View style={styles.container}>
           <View style={styles.buttonContainer}>
@@ -70,7 +88,6 @@ const EmailScreen = ({navigation}) => {
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-
               <Text style={styles.errorText}>{errors.email}</Text>
               <Text style={styles.infoText}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
@@ -79,7 +96,7 @@ const EmailScreen = ({navigation}) => {
               </Text>
               <TouchableOpacity
                 style={styles.sendBtn}
-                onPress={() => navigation.navigate(navigationRoutes.otpscreen)}>
+                onPress={handleSubmit}>
                 <Text style={styles.sendBtnText}>Send</Text>
               </TouchableOpacity>
             </View>
@@ -122,6 +139,9 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: COLORS.blue,
     paddingHorizontal: 20,
+    color: COLORS.blue,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   errorText: {
     marginTop: 10,

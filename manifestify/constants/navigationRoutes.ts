@@ -6,6 +6,6 @@ export default {
   BottomTab: 'Bottom Navigation',
   discoverScreen: 'DiscoverScreen',
   initialScreen: 'InitialScreen',
-  emailEnterScreen: 'EmailScreen',
+  emailScreen: 'EmailScreen',
   otpscreen: 'OTPScreen',
 };

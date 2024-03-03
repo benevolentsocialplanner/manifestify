@@ -6,7 +6,6 @@ import LoginScreen from '../screens/LoginScreen';
 
 import RegisterScreen from '../screens/RegisterScreen';
 import InitialScreen from '../screens/InitialScreen';
-import DiscoverScreen from '../screens/DiscoverScreen';
 import EmailScreen from '../screens/email/EmailScreen';
 import OTPScreen from '../screens/email/OTPScreen';
 
@@ -33,7 +32,7 @@ const NoUserStack = ({navigation}) => {
         />
         <Stack.Screen
           options={{headerShown: false}}
-          name={navigationRoutes.emailEnterScreen}
+          name={navigationRoutes.emailScreen}
           component={EmailScreen}
         />
         <Stack.Screen

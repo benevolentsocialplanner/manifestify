@@ -1,7 +1,7 @@
 import React, {createContext, useEffect} from 'react';
 import {UserInterface} from './types/atoms';
 import Storage from './utils/storage';
-
+import {ImageBackground} from 'react-native';
 import LoggedInStack from './navigation/LoggedInStack.tsx';
 import NoUserStack from './navigation/NoUserStack.tsx';
 
@@ -46,6 +46,7 @@ const AppProvider = () => {
   }, []);
 
   useEffect(() => {
+    //TODO redirect user to the logged in stack when user is set
     const setUsers = async () => {
       try {
         const updatedAllUser = allUser.map(existingUser => {
@@ -74,10 +75,8 @@ const AppProvider = () => {
         registerUser: registerUser,
         setRegisterUser: setRegisterUser,
       }}>
-
-      
           {user ? (
-          <LoggedInStack/>
+            <LoggedInStack/>
         ) : (
           <NoUserStack/>
         )}
